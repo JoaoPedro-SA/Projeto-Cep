@@ -1,5 +1,5 @@
 async function pegaCEP(){
-     let cep = document.querySelector(".inputCEP");
+     let cep = document.querySelector(".inputCEP");  
      return cep.value
 }
 
@@ -10,8 +10,6 @@ function valor_nulo (valor) {
      return valor
 }
      
-
-
 async function ConsultaCEP(cep) {
      const url = `https://viacep.com.br/ws/${cep}/json/`;
      try{
@@ -31,11 +29,37 @@ async function ConsultaCEP(cep) {
 
 }
 
+async function Para_execulcao(valor_cel){
+     let parada = false;
+     for (let i = 0; i < valor_cel.length; i++){
+          if (!valor_cel || valor_cel.length !== 8) {
+               parada = true; // CEP inválido
+             }// CEP válido
+           }
+           
+
+     return parada;
+
+}
+
+
+
 const button = document.querySelector(".button");
 let cep = null;
 let texto = document.querySelector(".receber2");
 button.addEventListener('click', consulta1 = async () => { 
      cep = await pegaCEP();
+     let erro = document.querySelector('.erro_cep');
+     let condicao = await Para_execulcao(cep);
+     if (condicao === true){
+          erro.textContent = "CEP INVALIDO: SO PODE NUMERO ATÉ 8 DIGITOS";
+          erro.style.display = 'block';
+          throw new Error("Erro!");
+     }
+     else{
+          erro.style.display = 'none';
+     }
+
      const resultado = await ConsultaCEP(cep);
      texto.innerHTML = `
      <div><b> CEP:</b>  ${valor_nulo (resultado.cep)}</div>

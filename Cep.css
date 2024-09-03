@@ -76,6 +76,12 @@ body{
 
 }
 
+.erro_cep{
+     background-color: red;
+     font-weight: bold;
+     font-size: 13px;
+}
+
 h1{
      font-family:  'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
      text-wrap: wrap;
